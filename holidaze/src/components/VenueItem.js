@@ -15,7 +15,6 @@ const VenueItem = ({ venue }) => {
       <p>{venue.description}</p>
       <p>Price: ${venue.price}</p>
       <p>Max Guests: {venue.maxGuests}</p>
-      {/* Add more details as needed */}
     </div>
   );
 };

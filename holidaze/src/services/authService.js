@@ -28,7 +28,6 @@ export const loginUser = async (credentials) => {
     throw new Error(data.message || 'Login failed');
   }
 
-  // Assuming the response includes accessToken and the user's role or venueManager flag
   localStorage.setItem('authToken', data.accessToken);
   localStorage.setItem('venueManager', String(data.venueManager));
 

@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'; 
+import './Header.css';
 
 const Header = () => {
     const navigate = useNavigate();
     const isUserLoggedIn = localStorage.getItem('authToken');
-    const venueManager = localStorage.getItem('venueManager') === 'true';
+    const venueManager = localStorage.getItem('venueManager') === 'true'; 
 
     const handleLogout = () => {
         localStorage.clear();

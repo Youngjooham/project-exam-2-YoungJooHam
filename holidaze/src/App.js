@@ -1,3 +1,4 @@
+// src/App.js
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -6,7 +7,7 @@ import HomePage from './pages/HomePage';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import CreateVenueForm from './components/CreateVenueForm';
-import VenueDetailPage from './pages/VenueDetailPage'; 
+import VenueDetailPage from './pages/VenueDetailPage'; // Ensure this import is correct
 import ProtectedRoute from './components/ProtectedRoute';
 import UnauthorizedPage from './pages/UnauthorizedPage';
 
@@ -28,6 +29,7 @@ function App() {
         />
         <Route path="/venues/:id" element={<VenueDetailPage />} /> // Route for individual venue details
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        {/* Add other routes as needed */}
       </Routes>
     </Router>
   );

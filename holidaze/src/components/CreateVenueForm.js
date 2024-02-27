@@ -6,6 +6,7 @@ import useFormSubmit from '../hooks/useFormSubmit';
 const CreateVenueForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { handleSubmit: handleFormSubmit, error } = useFormSubmit(createVenue, '/venues'); 
+
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <div>
@@ -32,6 +33,8 @@ const CreateVenueForm = () => {
         {errors.maxGuests && <p>{errors.maxGuests.message}</p>}
       </div>
 
+
+      {/* Example for a single media URL input */}
       <div>
         <label htmlFor="media">Media URL:</label>
         <input id="media" type="text" {...register('media.0')} placeholder="http://example.com/image.jpg" />
