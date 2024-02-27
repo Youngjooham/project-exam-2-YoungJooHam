@@ -1,9 +1,10 @@
-// src/pages/HomePage.js
 import React, { useEffect, useState } from 'react';
 import { fetchAllVenues } from '../services/venueService';
+import VenueItem from '../components/VenueItem';
 
 const HomePage = () => {
   const [venues, setVenues] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const loadVenues = async () => {
@@ -18,24 +19,34 @@ const HomePage = () => {
     loadVenues();
   }, []);
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value.toLowerCase());
+  };
+
+  const filteredVenues = venues.filter(venue =>
+    venue.name.toLowerCase().includes(searchQuery) ||
+    venue.description.toLowerCase().includes(searchQuery)
+  );
+
   return (
     <div>
-    <h1>Welcome to Our Venue Booking Site</h1>
-    <div>
-      {venues.map(venue => (
-        <div key={venue.id}>
-          <h2>{venue.name}</h2>
-          <p>{venue.description}</p>
-          {/* Display the first media item as an image, if available */}
-          {venue.media && venue.media.length > 0 && (
-            <img src={venue.media[0]} alt={`Media for ${venue.name}`} style={{ maxWidth: '50%', height: 'auto' }} />)}
-          <p>Price: ${venue.price}</p>
-          {/* Display more venue details as needed */}
-        </div>
-      ))}
+      <h1>Welcome to Our Venue Booking Site</h1>
+      <input
+        type="text"
+        placeholder="Search for venues..."
+        onChange={handleSearchChange}
+        style={{ padding: '10px', margin: '10px 0', width: '100%', boxSizing: 'border-box' }}
+      />
+      <div>
+        {filteredVenues.length > 0 ? (
+          filteredVenues.map(venue => (
+            <VenueItem key={venue.id} venue={venue} />
+          ))
+        ) : (
+          <p>No venues found.</p>
+        )}
+      </div>
     </div>
-  </div>
-  
   );
 };
 

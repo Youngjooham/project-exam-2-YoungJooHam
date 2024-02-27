@@ -1,12 +1,14 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
-import CreateVenueForm from './components/CreateVenueForm'; // Make sure to create this component
-import ProtectedRoute from './components/ProtectedRoute'; // Make sure to create this component
-import UnauthorizedPage from './pages/UnauthorizedPage'; // Optional: Create a page to display when access is unauthorized
+import CreateVenueForm from './components/CreateVenueForm';
+import VenueDetailPage from './pages/VenueDetailPage'; 
+import ProtectedRoute from './components/ProtectedRoute';
+import UnauthorizedPage from './pages/UnauthorizedPage';
 
 function App() {
   return (
@@ -20,12 +22,12 @@ function App() {
           path="/create-venue" 
           element={
             <ProtectedRoute>
-              <CreateVenueForm /> {/* This route is now protected and only accessible by venue managers */}
+              <CreateVenueForm />
             </ProtectedRoute>
           } 
         />
-        <Route path="/unauthorized" element={<UnauthorizedPage />} /> {/* Unauthorized route */}
-        {/* Add other routes as needed */}
+        <Route path="/venues/:id" element={<VenueDetailPage />} /> // Route for individual venue details
+        <Route path="/unauthorized" element={<UnauthorizedPage />} />
       </Routes>
     </Router>
   );

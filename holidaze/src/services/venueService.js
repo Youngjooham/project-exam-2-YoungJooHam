@@ -1,6 +1,6 @@
 // src/services/venueService.js
 
-// Existing code for creating a venue
+// Code for creating a venue
 export const createVenue = async (venueData) => {
     const authToken = localStorage.getItem('authToken');
     if (!authToken) throw new Error('No authorization token found');

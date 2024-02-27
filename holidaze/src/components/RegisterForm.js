@@ -1,4 +1,3 @@
-// src/components/RegisterForm.js
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { registerUser } from '../services/authService';
@@ -6,7 +5,7 @@ import useFormSubmit from '../hooks/useFormSubmit';
 
 const RegisterForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { handleSubmit: handleFormSubmit, error } = useFormSubmit(registerUser, '/login'); // Redirect to login after successful registration
+  const { handleSubmit: handleFormSubmit, error } = useFormSubmit(registerUser, '/login'); 
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>

@@ -1,4 +1,3 @@
-// src/components/LoginForm.js
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { loginUser } from '../services/authService';
@@ -6,7 +5,7 @@ import useFormSubmit from '../hooks/useFormSubmit';
 
 const LoginForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { handleSubmit: handleFormSubmit, error } = useFormSubmit(loginUser, '/'); // Assuming '/HomePage' is the redirect path after login
+  const { handleSubmit: handleFormSubmit, error } = useFormSubmit(loginUser, '/');
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>

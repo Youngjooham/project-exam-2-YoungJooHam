@@ -1,5 +1,3 @@
-// src/services/authService.js
-
 // Function to register a new user
 export const registerUser = async (userData) => {
   const response = await fetch('https://api.noroff.dev/api/v1/holidaze/auth/register', {

@@ -1,11 +1,10 @@
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom'; // Import useNavigate for programmatically navigation
-import './Header.css';
+import { NavLink, useNavigate } from 'react-router-dom'; 
 
 const Header = () => {
     const navigate = useNavigate();
     const isUserLoggedIn = localStorage.getItem('authToken');
-    const venueManager = localStorage.getItem('venueManager') === 'true'; // Use 'venueManager' consistently
+    const venueManager = localStorage.getItem('venueManager') === 'true';
 
     const handleLogout = () => {
         localStorage.clear();
@@ -14,7 +13,7 @@ const Header = () => {
 
     return (
         <header className="header">
-            <h1 className="logo">My App</h1>
+            <h1 className="logo">Holidaze</h1>
             <nav className="navbar">
                 <ul className="nav-links">
                     <li><NavLink to="/" end activeClassName="active-link">Home</NavLink></li>
