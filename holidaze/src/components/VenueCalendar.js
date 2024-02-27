@@ -25,9 +25,7 @@ const VenueCalendar = ({ venueId }) => {
     fetchBookedDates();
   }, [venueId]);
 
-  // Function to disable booked dates in the calendar
   const tileDisabled = ({ date, view }) => {
-    // Check if the calendar view is 'month' and if the date is in the bookedDates array
     return view === 'month' && bookedDates.some(bookedDate => 
       date.getFullYear() === bookedDate.getFullYear() &&
       date.getMonth() === bookedDate.getMonth() &&
