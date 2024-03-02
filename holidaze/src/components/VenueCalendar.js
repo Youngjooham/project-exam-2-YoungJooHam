@@ -2,28 +2,25 @@ import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; 
 
-const VenueCalendar = ({ venueId }) => {
+const VenueCalendar = ({ bookings, onDateChange }) => {
   const [bookedDates, setBookedDates] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedDateRange, setSelectedDateRange] = useState({ dateFrom: null, dateTo: null });
 
   useEffect(() => {
-    const fetchBookedDates = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(`https://api.noroff.dev/api/v1/holidaze/venues/${venueId}?_bookings=true`);
-        if (!response.ok) throw new Error('Failed to fetch booked dates');
-        const data = await response.json();
-        const dates = data.map(dateStr => new Date(dateStr));
-        setBookedDates(dates);
-      } catch (error) {
-        console.error('Error fetching booked dates:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchBookedDates();
-  }, [venueId]);
+    if (bookings) {
+      const dates = bookings.flatMap(booking => {
+        const start = new Date(booking.dateFrom);
+        const end = new Date(booking.dateTo);
+        for (var arr=[],dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
+          arr.push(new Date(dt));
+        }
+        return arr;
+      });
+      setBookedDates(dates);
+      setIsLoading(false);
+    }
+  }, [bookings]);
 
   const tileDisabled = ({ date, view }) => {
     return view === 'month' && bookedDates.some(bookedDate => 
@@ -33,12 +30,20 @@ const VenueCalendar = ({ venueId }) => {
     );
   };
 
+  const onChange = (value) => {
+    setSelectedDateRange({ dateFrom: value[0], dateTo: value[1] });
+    onDateChange({ dateFrom: value[0], dateTo: value[1] });
+  };
+
   if (isLoading) return <p>Loading calendar...</p>;
 
   return (
     <div>
       <Calendar
+        selectRange
         tileDisabled={tileDisabled}
+        onChange={onChange}
+        value={selectedDateRange.dateFrom && [selectedDateRange.dateFrom, selectedDateRange.dateTo]}
       />
     </div>
   );

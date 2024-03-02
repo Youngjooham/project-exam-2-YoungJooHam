@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'; 
-import './Header.css';
+import '../css/Header.css';
+import logo from '../images/logo.png';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -14,12 +15,13 @@ const Header = () => {
 
     return (
         <header className="header">
-            <h1 className="logo">Holidaze</h1>
+            <NavLink to="/">
+                <img src={logo} alt="Holidaze logo" style={{ width: '100px', height: 'auto' }} />
+            </NavLink>        
             <nav className="navbar">
                 <ul className="nav-links">
-                    <li><NavLink to="/" end activeClassName="active-link">Home</NavLink></li>
-                    <li><NavLink to="/about" activeClassName="active-link">About</NavLink></li>
-                    <li><NavLink to="/contact" activeClassName="active-link">Contact</NavLink></li>
+                    <li><NavLink to="/" end activeClassName="active-link">Venues</NavLink></li>
+                    {isUserLoggedIn && <li><NavLink to="/dashboard" activeClassName="active-link">Dashboard</NavLink></li>}
                     {!isUserLoggedIn && <li><NavLink to="/register" activeClassName="active-link">Register</NavLink></li>}
                     {!isUserLoggedIn && <li><NavLink to="/login" activeClassName="active-link">Login</NavLink></li>}
                     {venueManager && <li><NavLink to="/create-venue" activeClassName="active-link">Create Venue</NavLink></li>}

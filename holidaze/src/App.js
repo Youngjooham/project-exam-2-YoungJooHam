@@ -7,11 +7,16 @@ import HomePage from './pages/HomePage';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import CreateVenueForm from './components/CreateVenueForm';
-import VenueDetailPage from './pages/VenueDetailPage'; // Ensure this import is correct
+import VenueDetailPage from './pages/VenueDetailPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import UnauthorizedPage from './pages/UnauthorizedPage';
+import Dashboard from './pages/Dashboard';
+import Footer from './components/Footer';
+import BookingDetails from './pages/BookingDetails'; // Import the BookingDetails component
 
 function App() {
+  const profileName = '';
+
   return (
     <Router>
       <Header />
@@ -27,10 +32,19 @@ function App() {
             </ProtectedRoute>
           } 
         />
-        <Route path="/venues/:id" element={<VenueDetailPage />} /> // Route for individual venue details
+        <Route path="/venues/:id" element={<VenueDetailPage />} />
+        <Route path="/bookings/:id" element={<BookingDetails />} /> {/* Add the route for BookingDetails */}
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
-        {/* Add other routes as needed */}
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <Dashboard profileName={profileName} />
+            </ProtectedRoute>
+          } 
+        />
       </Routes>
+      <Footer />
     </Router>
   );
 }

@@ -30,6 +30,7 @@ export const loginUser = async (credentials) => {
 
   localStorage.setItem('authToken', data.accessToken);
   localStorage.setItem('venueManager', String(data.venueManager));
+  localStorage.setItem('name', data.name);
 
   return data;
 };

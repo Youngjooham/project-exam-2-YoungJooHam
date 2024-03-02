@@ -5,7 +5,7 @@ import useFormSubmit from '../hooks/useFormSubmit';
 
 const RegisterForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { handleSubmit: handleFormSubmit, error } = useFormSubmit(registerUser, '/login'); 
+  const { handleSubmit: handleFormSubmit, error } = useFormSubmit(registerUser, '/login');
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -23,6 +23,11 @@ const RegisterForm = () => {
         <label>Password:</label>
         <input type="password" {...register('password', { required: 'Password is required', minLength: { value: 8, message: 'Password must have at least 8 characters' } })} placeholder="Password" />
         {errors.password && <p>{errors.password.message}</p>}
+      </div>
+      <div>
+        <label>Avatar URL:</label>
+        <input type="text" {...register('avatar')} placeholder="Avatar URL" />
+        {/* No validation error for optional field */}
       </div>
       <div>
         <input type="checkbox" {...register('venueManager')} />

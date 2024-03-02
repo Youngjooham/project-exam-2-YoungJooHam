@@ -5,45 +5,44 @@ import useFormSubmit from '../hooks/useFormSubmit';
 
 const CreateVenueForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { handleSubmit: handleFormSubmit, error } = useFormSubmit(createVenue, '/venues'); 
+  const { handleSubmit: handleFormSubmit, error } = useFormSubmit(createVenue, '/dashboard');
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <div>
-        <label htmlFor="name">Name:</label>
-        <input id="name" {...register('name', { required: 'Name is required' })} />
-        {errors.name && <p>{errors.name.message}</p>}
-      </div>
+    <div className="container mt-5">
+      <form onSubmit={handleSubmit(handleFormSubmit)} className="needs-validation" noValidate>
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">Name:</label>
+          <input id="name" {...register('name', { required: 'Name is required' })} className={`form-control ${errors.name ? 'is-invalid' : ''}`} />
+          {errors.name && <div className="invalid-feedback">{errors.name.message}</div>}
+        </div>
 
-      <div>
-        <label htmlFor="description">Description:</label>
-        <textarea id="description" {...register('description', { required: 'Description is required' })} />
-        {errors.description && <p>{errors.description.message}</p>}
-      </div>
+        <div className="mb-3">
+          <label htmlFor="description" className="form-label">Description:</label>
+          <textarea id="description" {...register('description', { required: 'Description is required' })} className={`form-control ${errors.description ? 'is-invalid' : ''}`} />
+          {errors.description && <div className="invalid-feedback">{errors.description.message}</div>}
+        </div>
 
-      <div>
-        <label htmlFor="price">Price:</label>
-        <input id="price" type="number" {...register('price', { valueAsNumber: true, required: 'Price is required' })} />
-        {errors.price && <p>{errors.price.message}</p>}
-      </div>
+        <div className="mb-3">
+          <label htmlFor="price" className="form-label">Price:</label>
+          <input id="price" type="number" {...register('price', { valueAsNumber: true, required: 'Price is required' })} className={`form-control ${errors.price ? 'is-invalid' : ''}`} />
+          {errors.price && <div className="invalid-feedback">{errors.price.message}</div>}
+        </div>
 
-      <div>
-        <label htmlFor="maxGuests">Max Guests:</label>
-        <input id="maxGuests" type="number" {...register('maxGuests', { valueAsNumber: true, required: 'Max guests is required' })} />
-        {errors.maxGuests && <p>{errors.maxGuests.message}</p>}
-      </div>
+        <div className="mb-3">
+          <label htmlFor="maxGuests" className="form-label">Max Guests:</label>
+          <input id="maxGuests" type="number" {...register('maxGuests', { valueAsNumber: true, required: 'Max guests is required' })} className={`form-control ${errors.maxGuests ? 'is-invalid' : ''}`} />
+          {errors.maxGuests && <div className="invalid-feedback">{errors.maxGuests.message}</div>}
+        </div>
 
+        <div className="mb-3">
+          <label htmlFor="media" className="form-label">Media URL:</label>
+          <input id="media" type="text" {...register('media.0')} placeholder="http://example.com/image.jpg" className="form-control" />
+        </div>
 
-      {/* Example for a single media URL input */}
-      <div>
-        <label htmlFor="media">Media URL:</label>
-        <input id="media" type="text" {...register('media.0')} placeholder="http://example.com/image.jpg" />
-      </div>
-
-      
-      {error && <p>{error}</p>}
-      <button type="submit">Create Venue</button>
-    </form>
+        {error && <div className="alert alert-danger" role="alert">{error}</div>}
+        <button type="submit" className="btn btn-primary">Create Venue</button>
+      </form>
+    </div>
   );
 };
 

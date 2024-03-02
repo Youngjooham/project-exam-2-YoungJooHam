@@ -1,0 +1,19 @@
+  .venue-image {
+    width: 100px;  /* adjust as needed */
+    height: 400px; /* adjust as needed */
+    object-fit: cover;
+  }
+
+  .venue-card {
+    height: 100%; /* Make the card take up the full height of its container */
+  }
+  
+  .venue-card .card-body {
+    height: calc(100% - 200px); /* Subtract the height of the image from the height of the card body */
+    overflow: auto; /* Add a scrollbar if the content is too long */
+  }
+  
+  .venue-card img {
+    width: 100%;
+    height: 250px; /* Set a fixed height for the image */
+    object-fit: cover; /* Scale the image to cover the entire area */}

@@ -1,0 +1,27 @@
+.booking-card .card-img-bottom .image-container{
+    position: relative;
+    background-color: #f0f8ff; /* Light blue */
+  }
+  
+.booking-card .card-img-bottom:hover .go-to-booking {
+    display: block;
+  }
+
+  .go-to-booking {
+    display: block;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+  }
+
+.venue-card {
+    background-color: #f5f5dc; /* Beige */
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAllVenues } from '../services/venueService';
 import VenueItem from '../components/VenueItem';
+import '../css/style.css';
 
 const HomePage = () => {
   const [venues, setVenues] = useState([]);
@@ -29,7 +30,7 @@ const HomePage = () => {
   );
 
   return (
-    <div>
+    <div className="p-5">
       <h1>Welcome to Our Venue Booking Site</h1>
       <input
         type="text"
@@ -37,7 +38,7 @@ const HomePage = () => {
         onChange={handleSearchChange}
         style={{ padding: '10px', margin: '10px 0', width: '100%', boxSizing: 'border-box' }}
       />
-      <div>
+      <div className="row">
         {filteredVenues.length > 0 ? (
           filteredVenues.map(venue => (
             <VenueItem key={venue.id} venue={venue} />

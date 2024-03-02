@@ -2,10 +2,10 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
-  const isVenueManager = localStorage.getItem('venueManager') === 'true';
+  const isAuthenticated = Boolean(localStorage.getItem('authToken'));
 
-  if (!isVenueManager) {
-    return <Navigate to="/unauthorized" replace />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
   }
 
   return children;
