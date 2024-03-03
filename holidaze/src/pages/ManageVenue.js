@@ -6,8 +6,8 @@ import { updateVenue, getBookingsForVenue } from '../services/venueManagerServic
 const ManageVenue = () => {
   const { id } = useParams();
   const [venue, setVenue] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(''); 
-  const [bookings, setBookings] = useState([]);
+  const [successMessage] = useState(''); 
+  const [setBookings] = useState([]);
 
   useEffect(() => {
     fetch(`https://api.noroff.dev/api/v1/holidaze/venues/${id}?_owner=true&_bookings=true`)
