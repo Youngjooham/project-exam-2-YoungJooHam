@@ -16,7 +16,6 @@ import BookingDetails from './pages/BookingDetails'; // Import the BookingDetail
 import ManageVenue from './pages/ManageVenue';
 
 function App() {
-  const profileName = '';
 
   return (
     <Router>

@@ -35,7 +35,12 @@ const VenueDetailPage = () => {
     }
     try {
       const data = await createBooking(dateFrom, dateTo, Number(guests), id);
-      alert('Booking created successfully!');
+      console.log(data);      // handle the data here, for example:
+      if (data.id) {
+        alert('Booking created successfully!');
+      } else {
+        alert('Error creating booking. Please try again.');
+      }
     } catch (error) {
       console.error('Error:', error);
       alert('Error creating booking. Please try again.');
