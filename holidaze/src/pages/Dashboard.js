@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchVenuesByProfile } from '../services/venueManagerService';
 import UpdateAvatar from '../components/UserProfile/UpdateAvatar';
 import '../css/Dashboard.css';
+import { BASE_URL } from '../constants/api.js';
 
 const Dashboard = () => {
   const [bookings, setBookings] = useState([]);
@@ -13,7 +14,7 @@ const Dashboard = () => {
     const fetchBookings = async () => {
       const authToken = localStorage.getItem('authToken');
       const name = localStorage.getItem('name');
-      const response = await fetch(`https://api.noroff.dev/api/v1/holidaze/profiles/${name}/?_bookings=true`, {
+      const response = await fetch(`${BASE_URL}profiles/${name}/?_bookings=true`, {
         headers: {
           Authorization: `Bearer ${authToken}`
         }
@@ -21,17 +22,14 @@ const Dashboard = () => {
     
       if (response.ok) {
         const data = await response.json();
-        console.log('Bookings data:', data); // Log the data to see its structure
-        // If the data is an object with a 'bookings' key
         if (data.bookings && Array.isArray(data.bookings)) {
           setBookings(data.bookings);
-        } else if (Array.isArray(data)) { // If the data itself is an array
+        } else if (Array.isArray(data)) {
           setBookings(data);
         } else {
           console.error('Unexpected data structure for bookings');
         }
 
-        // If the data has an 'avatar' key, set the avatar URL
         if (data.avatar) {
           setAvatarUrl(data.avatar);
         }
@@ -57,7 +55,7 @@ const Dashboard = () => {
   const fetchUserData = async () => {
     const name = localStorage.getItem('name');
     const authToken = localStorage.getItem('authToken');
-    const response = await fetch(`https://api.noroff.dev/api/v1/holidaze/profiles/${name}`, {
+    const response = await fetch(`${BASE_URL}profiles/${name}`, {
       headers: {
         'Authorization': `Bearer ${authToken}`
       }
@@ -69,26 +67,10 @@ const Dashboard = () => {
       console.error('Failed to fetch user data');
     }
   };
-  
-  const fetchVenues = async () => {
-    const authToken = localStorage.getItem('authToken');
-    const response = await fetch('https://api.noroff.dev/api/v1/holidaze/venues', {
-      headers: {
-        'Authorization': `Bearer ${authToken}`
-      }
-    });
-    if (response.ok) {
-      const data = await response.json();
-      setVenues(data);
-    } else {
-      console.error('Failed to fetch venues');
-    }
-  };
 
-  // Add this function inside your Dashboard component
   const deleteVenue = async (id) => {
     const authToken = localStorage.getItem('authToken');
-    const response = await fetch(`https://api.noroff.dev/api/v1/holidaze/venues/${id}`, {
+    const response = await fetch(`${BASE_URL}venues/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${authToken}`
@@ -96,9 +78,7 @@ const Dashboard = () => {
   });
 
   if (response.status === 204) {
-    alert('Venue deleted successfully');
-    // Re-fetch the venues after a venue is deleted
-    fetchVenues();
+    setVenues(venues.filter(venue => venue.id !== id));
   } else {
     alert('Failed to delete venue');
   }
@@ -108,43 +88,79 @@ const goToBooking = (id) => {
   window.location.href = `/bookings/${id}`;
 };
 
-  return (
-    <div className="container mt-5">
-      <img className="rounded-circle" src={avatarUrl} alt="User avatar" style={{width: "200px", height: "200px", objectFit: "cover"}} />      <button onClick={() => setIsEditingAvatar(!isEditingAvatar)}>Edit Avatar</button>
-      <h1> Dashboard </h1>
-      {isEditingAvatar && <UpdateAvatar onAvatarUpdated={fetchUserData} />}      
-      <div className="row">
+const goToVenue = (id) => {
+  window.location.href = `/manage-venue/${id}`;
+};
+
+const deleteVenueWithConfirmation = async (id) => {
+  if (window.confirm('Are you sure you want to delete this venue?')) {
+    try {
+      await deleteVenue(id);
+      window.alert('Venue deleted successfully');
+    } catch (error) {
+      console.error('Failed to delete venue', error);
+    }
+  }
+};
+
+return (
+  <div className="container mt-5">
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <h1>Your Profile</h1>
+      <img className="rounded-circle" src={avatarUrl} alt="User avatar" style={{width: "200px", height: "200px", objectFit: "cover"}} /> 
+      <button onClick={() => setIsEditingAvatar(!isEditingAvatar)}>Edit Avatar</button>
+    </div>
+    {isEditingAvatar && <UpdateAvatar onAvatarUpdated={fetchUserData} />}      
+
+    <div className="row">
+    <div className="col-lg-6" style={{ marginTop: '50px' }}>
+      {bookings.length > 0 && <h2>Upcoming bookings</h2>}
         {bookings.map(booking => (
-          <div key={booking.id} className="col-lg-4 mb-4">
+          <div key={booking.id} className="mb-4">
             <div className="card h-100 booking-card">
               <div className="card-body">
-                <h2 className="card-title">Venue Name: {booking.venue.name}</h2>
+                <h2 className="card-title"> {booking.venue.name}</h2>
                 <p className="card-text">Date From: {new Date(booking.dateFrom).toLocaleDateString()}</p>
                 <p className="card-text">Date To: {new Date(booking.dateTo).toLocaleDateString()}</p>
                 <p className="card-text">Guests: {booking.guests}</p>
-                <p className="card-text">Rating: {booking.venue.rating}</p>
+                {Array(booking.venue.rating).fill().map((_, i) => <span key={i}>⭐</span>)}
               </div>
-              {booking.venue.media && <img className="card-img-bottom" src={booking.venue.media} alt="Booking" />}
-              <button className="go-to-booking" onClick={() => goToBooking(booking.id)}>Go to Booking</button>
+              <div className="image-container">
+                {booking.venue.media && <img className="card-img-bottom booking-image" src={booking.venue.media} alt="Booking" />}
+                <button className="go-to-booking" onClick={() => goToBooking(booking.id)}>Manage Booking</button>
+              </div>
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="col-lg-6" style={{ marginTop: '50px' }}>
+      {venues.length > 0 && <h2>Venues You Manage</h2>}
         {venues.map(venue => (
-          <div key={venue.id} className="col-lg-4 mb-4">
+          <div key={venue.id} className="mb-4">
             <div className="card h-100 venue-card">
               <div className="card-body">
-                <h2 className="card-title">Venue Name: {venue.name}</h2>
-                <p className="card-text">Rating: {venue.rating}</p>
-                <p className="card-text">Guests: {venue.maxGuests}</p>
-                <button onClick={() => deleteVenue(venue.id)}>Delete</button>
+                <h2 className="card-title"> {venue.name}</h2>
+                <p className="card-text">NOK {venue.price}/ per night</p>
+                <p className="card-text">Max Guests: {venue.maxGuests}</p>
+                <p className="card-text">Wifi: {venue.meta.wifi ? 'Yes' : 'No'}</p>
+                <p className="card-text">Parking: {venue.meta.parking ? 'Yes' : 'No'}</p>
+                <p className="card-text">Breakfast: {venue.meta.breakfast ? 'Yes' : 'No'}</p>
+                <p className="card-text">Pets: {venue.meta.pets ? 'Yes' : 'No'}</p>
+
+                <div className="venue-container">
+                  {venue.media && <img className="card-img-bottom venue-image" src={venue.media} alt="Venue" />}
+                  <button className="manage-venue-button" onClick={() => goToVenue(venue.id)}>Manage Venue</button>
+                </div>
+                <button onClick={() => deleteVenueWithConfirmation(venue.id)}>Delete Venue</button>
               </div>
-              {venue.media && <img className="card-img-bottom" src={venue.media} alt="Venue" />}
             </div>
           </div>
         ))}
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default Dashboard;

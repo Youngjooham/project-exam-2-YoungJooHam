@@ -31,12 +31,12 @@ const HomePage = () => {
 
   return (
     <div className="p-5">
-      <h1>Welcome to Our Venue Booking Site</h1>
+      <h1>Welcome to Holidaze!</h1>
       <input
         type="text"
         placeholder="Search for venues..."
         onChange={handleSearchChange}
-        style={{ padding: '10px', margin: '10px 0', width: '100%', boxSizing: 'border-box' }}
+        style={{ padding: '10px', margin: '20px 0', width: '20%', boxSizing: 'border-box' }}
       />
       <div className="row">
         {filteredVenues.length > 0 ? (

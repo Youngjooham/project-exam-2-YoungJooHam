@@ -13,6 +13,7 @@ import UnauthorizedPage from './pages/UnauthorizedPage';
 import Dashboard from './pages/Dashboard';
 import Footer from './components/Footer';
 import BookingDetails from './pages/BookingDetails'; // Import the BookingDetails component
+import ManageVenue from './pages/ManageVenue';
 
 function App() {
   const profileName = '';
@@ -33,13 +34,14 @@ function App() {
           } 
         />
         <Route path="/venues/:id" element={<VenueDetailPage />} />
-        <Route path="/bookings/:id" element={<BookingDetails />} /> {/* Add the route for BookingDetails */}
+        <Route path="/bookings/:id" element={<BookingDetails />} />
+        <Route path="/manage-venue/:id" element={<ManageVenue />} /> {/* Add the route for ManageVenue */}
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
         <Route 
           path="/dashboard" 
           element={
             <ProtectedRoute>
-              <Dashboard profileName={profileName} />
+              <Dashboard/>
             </ProtectedRoute>
           } 
         />

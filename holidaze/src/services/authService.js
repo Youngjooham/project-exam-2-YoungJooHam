@@ -1,6 +1,8 @@
+import { BASE_URL } from '../constants/api.js';
+
 // Function to register a new user
 export const registerUser = async (userData) => {
-  const response = await fetch('https://api.noroff.dev/api/v1/holidaze/auth/register', {
+  const response = await fetch(`${BASE_URL}auth/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(userData),
@@ -16,7 +18,7 @@ export const registerUser = async (userData) => {
 
 // Function to log in a user and save token and role
 export const loginUser = async (credentials) => {
-  const response = await fetch('https://api.noroff.dev/api/v1/holidaze/auth/login', {
+  const response = await fetch(`${BASE_URL}auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials),

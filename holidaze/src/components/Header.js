@@ -9,8 +9,10 @@ const Header = () => {
     const venueManager = localStorage.getItem('venueManager') === 'true'; 
 
     const handleLogout = () => {
-        localStorage.clear();
-        navigate('/');
+        if (window.confirm('Are you sure you want to logout?')) {
+          localStorage.clear();
+          navigate('/');
+        }
     };
 
     return (
@@ -20,12 +22,12 @@ const Header = () => {
             </NavLink>        
             <nav className="navbar">
                 <ul className="nav-links">
-                    <li><NavLink to="/" end activeClassName="active-link">Venues</NavLink></li>
-                    {isUserLoggedIn && <li><NavLink to="/dashboard" activeClassName="active-link">Dashboard</NavLink></li>}
-                    {!isUserLoggedIn && <li><NavLink to="/register" activeClassName="active-link">Register</NavLink></li>}
-                    {!isUserLoggedIn && <li><NavLink to="/login" activeClassName="active-link">Login</NavLink></li>}
-                    {venueManager && <li><NavLink to="/create-venue" activeClassName="active-link">Create Venue</NavLink></li>}
-                    {isUserLoggedIn && <li><button onClick={handleLogout}>Logout</button></li>}
+                <li><NavLink to="/" end activeClassName="active-link">Venues</NavLink></li>
+                {isUserLoggedIn && <li><NavLink to="/dashboard" activeClassName="active-link" className="big-link">Dashboard</NavLink></li>}
+                {!isUserLoggedIn && <li><NavLink to="/register" activeClassName="active-link">Register</NavLink></li>}
+                {!isUserLoggedIn && <li><NavLink to="/login" activeClassName="active-link">Login</NavLink></li>}
+                {venueManager && <li><NavLink to="/create-venue" activeClassName="active-link" className="big-link">Create Venue</NavLink></li>}
+                {isUserLoggedIn && <li><button onClick={handleLogout}>Logout</button></li>}              
                 </ul>
             </nav>
         </header>

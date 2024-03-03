@@ -1,6 +1,6 @@
   .venue-image {
-    width: 100px;  /* adjust as needed */
-    height: 400px; /* adjust as needed */
+    width: 100px;
+    height: 400px; 
     object-fit: cover;
   }
 
@@ -15,5 +15,36 @@
   
   .venue-card img {
     width: 100%;
-    height: 250px; /* Set a fixed height for the image */
+    height: 250px; 
     object-fit: cover; /* Scale the image to cover the entire area */}
+
+.booking-details {
+        width: 50%;
+        margin: 0 auto;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+}
+      
+.booking-title {
+        text-align: center;
+        color: #333;
+}
+      
+.booking-info {
+        margin-bottom: 20px;
+}
+      
+.booking-info p {
+        margin: 10px 0;
+}
+      
+.booking-image {
+        display: flex;
+        justify-content: center;
+}
+      
+.booking-image img {
+        max-width: 50%;
+        height: auto;
+}
