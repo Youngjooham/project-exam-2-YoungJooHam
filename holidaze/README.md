@@ -1,28 +1,56 @@
-# Getting Started with Create React App
+# Holidaze
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Holidaze](https://github.com/Youngjooham/project-exam-2-YoungJooHam/assets/100440331/29a0d91b-f64d-49e3-8ff3-b875f9978433)
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+### This website was made for my school Project Exam 2 
 
-### `npm start`
+#### The brief: 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+A newly launched accommodation booking site called Holidaze has approached you to develop a brand new front end for their application. While they have a list of required features, the design and user experience has not been specified. Working with the official API documentation, plan, design and build a modern front end accommodation booking application.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+There are two aspects to this brief: the customer-facing side of the website where users can book holidays at a venue, and an admin-facing side of the website where users can register and manage venues and bookings at those venues.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Built With
 
-### `npm run build`
+- HTML
+- CSS
+- JavaScript
+- Bootstrap
+- React
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
+### Installing
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repo:
+```bash
+-  git clone https://github.com/Youngjooham/project-exam-2-YoungJooHam.git
+```
+2. Install the dependencies:
+```bash   
+   npm install
+```
+
+## Running
+To run the app, run the following commands:
+
+```bash
+cd holidaze
+```
+```bash
+npm start
+```
+
+- Use the live server
+
+
+## Contributing
+Young Joo Ham
+
+## Contact
+
+[My LinkedIn page](https://www.linkedin.com/in/youngjoo-ham-23b23395/?originalSubdomain=no)
+
+[My GitHub profile](https://github.com/Youngjooham)
